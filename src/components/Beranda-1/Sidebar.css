@@ -1,0 +1,11 @@
+.sidebar {
+  border-radius: 0 10px 10px 0;
+}
+
+.sidebar-icon {
+  transition: transform 0.2s ease-in-out;
+}
+
+.sidebar-icon:hover {
+  transform: scale(1.1);
+}
