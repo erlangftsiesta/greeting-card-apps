@@ -5,6 +5,7 @@ import card1 from "../../assets/card-1.png";
 import card2 from "../../assets/card-2.png";
 import card3 from "../../assets/card-3.png";
 import card4 from "../../assets/card-4.png";
+import { FaChevronDown } from "react-icons/fa";
 
 interface Card {
   id: string;
@@ -15,7 +16,7 @@ interface Card {
   date: string;
   imageUrl?: string;
   spotifySong?: string;
-  isShuffling?: boolean
+  isShuffling?: boolean;
 }
 
 const CardDeck = () => {
@@ -28,7 +29,7 @@ const CardDeck = () => {
         "Important meeting with ABC Company to discuss project scope and deliverables",
       category: "Work",
       date: "2024-12-21",
-      imageUrl: card1, // Tambahkan path gambar sesuai kebutuhan
+      imageUrl: card1,
     },
     {
       id: "card-2",
@@ -37,7 +38,7 @@ const CardDeck = () => {
       description: "Don't forget to bring presents and party supplies",
       category: "Personal",
       date: "2024-12-22",
-      imageUrl: card2, // Tambahkan path gambar sesuai kebutuhan
+      imageUrl: card2,
     },
     {
       id: "card-3",
@@ -46,7 +47,7 @@ const CardDeck = () => {
       description: "Focus on upper body and cardio exercises",
       category: "Health",
       date: "2024-12-23",
-      imageUrl: card3, // Tambahkan path gambar sesuai kebutuhan
+      imageUrl: card3,
     },
     {
       id: "card-4",
@@ -56,18 +57,10 @@ const CardDeck = () => {
         "Review and finalize all project deliverables before submission",
       category: "Work",
       date: "2024-12-24",
-      imageUrl: card4, // Tambahkan path gambar sesuai kebutuhan
-    },
-    {
-      id: "card-5",
-      title: "Family Dinner",
-      content: "Monthly family gathering at home",
-      description: "Prepare dinner for 6 people, including vegetarian options",
-      category: "Personal",
-      date: "2024-12-25",
-      imageUrl: card1, // Tambahkan path gambar sesuai kebutuhan
+      imageUrl: card4,
     },
   ]);
+
   const [selectedCard, setSelectedCard] = useState<Card | null>(null);
   const [isShuffling, setIsShuffling] = useState(false);
 
@@ -79,17 +72,15 @@ const CardDeck = () => {
 
   const shuffleCards = () => {
     if (isShuffling) return;
-    
-    setIsShuffling(true);
-    
-    // Mark all cards as shuffling
-    setCards(cards.map(card => ({ ...card, isShuffling: true })));
 
-    // After animation, update the actual order and remove shuffling state
+    setIsShuffling(true);
+
+    setCards(cards.map((card) => ({ ...card, isShuffling: true })));
+
     setTimeout(() => {
       const shuffled = [...cards]
         .sort(() => Math.random() - 0.5)
-        .map(card => ({ ...card, isShuffling: false }));
+        .map((card) => ({ ...card, isShuffling: false }));
       setCards(shuffled);
       setIsShuffling(false);
     }, 800);
@@ -97,7 +88,15 @@ const CardDeck = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="flex flex-col items-center gap-8">
+      <div className="relative flex flex-col items-center gap-8">
+        <motion.div
+          className="absolute -top-16 left-2/2 transform -translate-x-1/2 flex flex-col items-center"
+          animate={{ y: [0, -10, 0] }}
+          transition={{ repeat: Infinity, duration: 1.5 }}
+        >
+          <FaChevronDown className="text-pink-500 text-5xl" />
+        </motion.div>
+
         {/* Card Stack */}
         <div className="relative w-full max-w-md h-64 perspective-1000">
           <AnimatePresence>
@@ -133,12 +132,6 @@ const CardDeck = () => {
                       className="w-full h-72 object-cover"
                     />
                   )}
-                  {/* <div className="p-4">
-                    <h3 className="font-semibold text-lg mb-1">{card.title}</h3>
-                    <p className="text-sm text-gray-600 line-clamp-2">
-                      {card.description}
-                    </p>
-                  </div> */}
                 </div>
               </motion.div>
             ))}
@@ -195,7 +188,9 @@ const CardDeck = () => {
                 <span className="px-3 py-1 bg-primary/10 rounded-full text-sm">
                   {selectedCard.category}
                 </span>
-                <span className="text-sm text-gray-500">{selectedCard.date}</span>
+                <span className="text-sm text-gray-500">
+                  {selectedCard.date}
+                </span>
               </div>
               <div className="flex gap-4">
                 <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white">

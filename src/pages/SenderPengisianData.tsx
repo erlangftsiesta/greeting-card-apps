@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { ChevronRight, Calendar, Music, Search, Loader2 } from "lucide-react";
+import { Calendar, Music, Search, Loader2 } from "lucide-react";
 import axios from "axios";
 
 interface SpotifyTrack {
